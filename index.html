@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen | 技术博客</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+                            300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+
+    <!-- Reading Progress -->
+    <div id="progress-bar"></div>
+
+    <!-- Spotlight Effect -->
+    <div id="spotlight" class="spotlight hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="nav-glass">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <div class="nav-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="logo-icon">A</div>
+                    <span class="logo-text hidden sm:block">Alex<span class="gradient-text">.Blog</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="nav-link">首页</a>
+                    <a href="#articles" class="nav-link">文章</a>
+                    <a href="#projects" class="nav-link">项目</a>
+                    <a href="#about" class="nav-link">关于</a>
+                    <div class="nav-divider"></div>
+                    <button onclick="toggleTheme()" class="nav-icon-btn" aria-label="切换主题">
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button onclick="toggleSearch()" class="nav-icon-btn" aria-label="搜索">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Controls -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="toggleTheme()" class="nav-icon-btn">
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="nav-icon-btn">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold text-xl gradient-text">菜单</span>
+                <button onclick="toggleMobileMenu()" class="nav-icon-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-2">
+                <a href="#home" onclick="toggleMobileMenu()" class="mobile-link">首页</a>
+                <a href="#articles" onclick="toggleMobileMenu()" class="mobile-link">文章</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="mobile-link">项目</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="mobile-link">关于</a>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">关注我</p>
+                <div class="flex gap-4">
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">TW</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="search-modal hidden">
+        <div class="search-backdrop" onclick="toggleSearch()"></div>
+        <div class="search-container">
+            <div class="search-box animate-fade-in">
+                <div class="search-input-wrapper">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="搜索文章..." oninput="handleSearch(this.value)">
+                    <kbd class="search-kbd">ESC</kbd>
+                </div>
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <div class="hero-blob hero-blob-1"></div>
+            <div class="hero-blob hero-blob-2"></div>
+            <div class="hero-blob hero-blob-3"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="animate-slide-up">
+                <div class="hero-badge">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    欢迎访问我的数字花园
+                </div>
+
+                <h1 class="hero-title">
+                    探索 <span class="gradient-text">代码</span> 与<br class="hidden sm:block">
+                    <span class="typing-cursor" id="typing-text">设计的边界</span>
+                </h1>
+
+                <p class="hero-desc">
+                    我是 Alex，一名全栈开发者。在这里记录技术思考、分享开发经验，以及探索数字世界的无限可能。
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#articles" class="btn-primary">
+                        浏览文章
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="#about" class="btn-secondary">了解更多</a>
+                </div>
+            </div>
+
+            <div class="hero-stats animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">技术文章</div></div>
+                <div class="stat-item"><div class="stat-num">120k</div><div class="stat-label">总阅读</div></div>
+                <div class="stat-item"><div class="stat-num">8年</div><div class="stat-label">开发经验</div></div>
+                <div class="stat-item"><div class="stat-num">2k+</div><div class="stat-label">关注者</div></div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">精选文章</h2>
+                    <p class="section-subtitle">深度技术分享与开发心得</p>
+                </div>
+                <div class="filter-tags" id="article-filters">
+                    <button onclick="filterArticles('all')" class="filter-btn active" data-filter="all">全部</button>
+                    <button onclick="filterArticles('frontend')" class="filter-btn" data-filter="frontend">前端</button>
+                    <button onclick="filterArticles('backend')" class="filter-btn" data-filter="backend">后端</button>
+                    <button onclick="filterArticles('ai')" class="filter-btn" data-filter="ai">AI</button>
+                    <button onclick="filterArticles('life')" class="filter-btn" data-filter="life">生活</button>
+                </div>
+            </div>
+
+            <div class="articles-grid" id="articles-grid">
+                <!-- Articles injected by JS -->
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="btn-secondary inline-flex items-center gap-2">
+                    加载更多
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-alt">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="section-title">开源项目</h2>
+                <p class="section-subtitle max-w-2xl mx-auto">我参与开发和维护的一些开源项目，欢迎 Star 和贡献代码</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon icon-blue">F</div>
+                        <div class="project-tags">
+                            <span class="tag-yellow">TypeScript</span>
+                            <span class="tag-blue">React</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">FastUI</h3>
+                    <p class="project-desc">一个轻量级、高性能的 React UI 组件库，专注于开发体验和可访问性，支持暗色模式和主题定制。</p>
+                    <div class="project-footer">
+                        <div class="project-stats">
+                            <span>⭐ 2.4k</span>
+                            <span>🍴 342</span>
+                        </div>
+                        <a href="#" class="project-link text-blue-600">查看项目 →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon icon-purple">A</div>
+                        <div class="project-tags">
+                            <span class="tag-green">Go</span>
+                            <span class="tag-orange">AI</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">AI Gateway</h3>
+                    <p class="project-desc">统一的 AI API 网关，支持多模型负载均衡、流式响应、缓存和速率限制，简化 AI 服务集成。</p>
+                    <div class="project-footer">
+                        <div class="project-stats">
+                            <span>⭐ 1.8k</span>
+                            <span>🍴 186</span>
+                        </div>
+                        <a href="#" class="project-link text-purple-600">查看项目 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2 class="section-title">关于我</h2>
+                    <div class="about-text">
+                        <p>你好！我是 Alex，一名热爱技术的全栈开发者。我有 8 年的开发经验，专注于构建高性能、用户友好的 Web 应用。</p>
+                        <p>我相信好的代码不仅要能运行，还要优雅、可维护。在日常工作中，我热衷于探索新技术，从 React Server Components 到 LLM 应用开发，始终保持学习的热情。</p>
+                        <p>除了编程，我喜欢摄影、阅读和咖啡。我相信技术与生活的平衡能带来更好的创造力。</p>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h3 class="font-semibold mb-4 text-slate-800 dark:text-slate-200">技术栈</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">JavaScript/TypeScript</span>
+                            <span class="tech-tag">React/Vue</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
+                    </div>
+
+                    <div class="about-actions">
+                        <a href="#" class="btn-dark">下载简历</a>
+                        <a href="mailto:alex@example.com" class="btn-secondary">联系我</a>
+                    </div>
+                </div>
+
+                <div class="about-image">
+                    <div class="image-frame">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop" alt="Alex Chen">
+                    </div>
+                    <div class="image-deco deco-1"></div>
+                    <div class="image-deco deco-2 animate-float">👋</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section section-alt">
+        <div class="container text-center">
+            <h2 class="section-title">订阅更新</h2>
+            <p class="section-subtitle max-w-2xl mx-auto mb-8">每周精选技术文章，直接发送到您的邮箱。无垃圾邮件，随时退订。</p>
+
+            <form onsubmit="handleSubscribe(event)" class="newsletter-form">
+                <input type="email" placeholder="your@email.com" required class="newsletter-input">
+                <button type="submit" class="btn-primary">立即订阅</button>
+            </form>
+
+            <p class="mt-4 text-sm text-slate-500">已有 1,200+ 开发者订阅</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="nav-logo mb-4">
+                        <div class="logo-icon">A</div>
+                        <span class="logo-text">Alex<span class="gradient-text">.Blog</span></span>
+                    </div>
+                    <p class="footer-desc">记录技术成长，分享开发经验。致力于构建更好的 Web 体验，探索技术的无限可能。</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">导航</h4>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#articles">文章</a></li>
+                        <li><a href="#projects">项目</a></li>
+                        <li><a href="#about">关于</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">链接</h4>
+                    <ul>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">RSS 订阅</a></li>
+                        <li><a href="#">友链</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p> Alex Chen. All rights reserved.</p>
+                <p>Made with <span class="text-red-500">♥</span> using Tailwind CSS</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <div class="toast-icon">✓</div>
+            <span id="toast-message">操作成功</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/articles-data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/articles.js"></script>
+    <script src="js/typing.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
