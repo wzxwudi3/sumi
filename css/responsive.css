@@ -1,0 +1,65 @@
+/* ===== Mobile Optimizations ===== */
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .hero-desc {
+        font-size: 1.125rem;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .about-actions {
+        flex-direction: column;
+    }
+
+    .about-actions .btn-dark,
+    .about-actions .btn-secondary {
+        text-align: center;
+    }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .nav-glass,
+    .mobile-menu,
+    .search-modal,
+    .scroll-indicator,
+    #spotlight,
+    #progress-bar,
+    .toast {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .section-alt {
+        background: none !important;
+    }
+
+    a {
+        text-decoration: underline;
+        color: #000 !important;
+    }
+}

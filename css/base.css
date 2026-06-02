@@ -1,0 +1,199 @@
+/* ===== Base & Reset ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: inherit;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ===== Gradient Text ===== */
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Grid Background ===== */
+.bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+}
+.dark .bg-grid {
+    background-image: linear-gradient(to right, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+}
+
+/* ===== Reading Progress ===== */
+#progress-bar {
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: width 0.1s;
+}
+
+/* ===== Spotlight ===== */
+.spotlight {
+    position: fixed;
+    pointer-events: none;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: opacity 0.3s;
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+@media (min-width: 640px) {
+    .container { padding: 0 1.5rem; }
+}
+@media (min-width: 1024px) {
+    .container { padding: 0 2rem; }
+}
+
+/* ===== Section ===== */
+.section {
+    padding: 6rem 0;
+    position: relative;
+}
+.section-alt {
+    background: rgba(241, 245, 249, 0.5);
+}
+.dark .section-alt {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+@media (min-width: 768px) {
+    .section-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+}
+
+.section-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+@media (min-width: 640px) {
+    .section-title { font-size: 2.25rem; }
+}
+
+.section-subtitle {
+    color: #64748b;
+}
+.dark .section-subtitle {
+    color: #94a3b8;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(to right, #2563eb, #9333ea);
+    color: white;
+    border-radius: 1rem;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.25);
+    transition: all 0.3s;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+.dark .btn-secondary {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+.btn-secondary:hover {
+    transform: scale(1.05);
+}
+
+.btn-dark {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #0f172a;
+    color: white;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: transform 0.3s;
+    text-decoration: none;
+}
+.dark .btn-dark {
+    background: white;
+    color: #0f172a;
+}
+.btn-dark:hover {
+    transform: scale(1.05);
+}
